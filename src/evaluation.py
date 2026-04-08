@@ -9,4 +9,4 @@ def evaluate_model(model, X_test, y_test):
 
 
 
-#to be pushed to the repo, this file will contain functions to evaluate the performance of the trained model. It will include metrics such as confusion matrix and classification report.
+#Pushed to the repo, this file will contain functions to evaluate the performance of the trained model. It will include metrics such as confusion matrix and classification report.
