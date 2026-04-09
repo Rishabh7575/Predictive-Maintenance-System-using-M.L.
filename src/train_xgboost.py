@@ -22,3 +22,13 @@ def train_xgboost(X, y):
         use_label_encoder=False,
         eval_metric="logloss"
     )
+
+    model.fit(X_train, y_train)
+
+    preds = model.predict(X_test)
+    f1 = f1_score(y_test, preds)
+
+    # Save model
+    joblib.dump(model, "models/xgb_model.pkl")
+
+    return model, f1
