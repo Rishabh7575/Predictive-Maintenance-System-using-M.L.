@@ -2,6 +2,8 @@ from src.preprocessing import load_cmaps_data, add_rul
 from src.featureEngineering import add_rolling_features
 from src.labelling import generate_labels
 from src.trainBaseline import train_models
+from src.train_xgboost import train_xgboost
+from src.model_comparison import compare_models
 
 path = "data/raw/train_FD001.txt"
 sensor_cols = [f"s_{i}" for i in range(1, 22)]
@@ -26,3 +28,7 @@ print("Label distribution:\n", y.value_counts())
 results = train_models(X, y)
 
 print("Model Results:", results)
+
+xgb_model, xgb_f1 = train_xgboost(X, y)
+
+compare_models(results, xgb_f1)
