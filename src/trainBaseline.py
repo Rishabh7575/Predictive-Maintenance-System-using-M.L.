@@ -35,3 +35,4 @@ def train_models(X, y):
 
 
 #to be pushed to the repo, this file will contain functions to train baseline models such as logistic regression and random forest. It will return the F1 scores for both models.
+# done
