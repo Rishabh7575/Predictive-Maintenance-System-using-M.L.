@@ -12,3 +12,11 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file)
 
     st.write("Input Data", df.head())
+
+    preds = model.predict(df)
+    probs = model.predict_proba(df)[:, 1]
+
+    df["Prediction"] = preds
+    df["Failure_Probability"] = probs
+
+    st.write("Predictions", df.head())
