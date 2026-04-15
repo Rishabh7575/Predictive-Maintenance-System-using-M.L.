@@ -15,9 +15,9 @@ if uploaded_file:
     st.subheader("📊 Input Data")
     st.dataframe(df.head())
 
-#     try:
-#         preds = model.predict(df)
-#         probs = model.predict_proba(df)[:, 1]
+    try:
+        preds = model.predict(df)
+        probs = model.predict_proba(df)[:, 1]
 
 #         df["Prediction"] = preds
 #         df["Failure_Probability"] = probs
