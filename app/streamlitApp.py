@@ -19,13 +19,13 @@ if uploaded_file:
         preds = model.predict(df)
         probs = model.predict_proba(df)[:, 1]
 
-#         df["Prediction"] = preds
-#         df["Failure_Probability"] = probs
+        df["Prediction"] = preds
+        df["Failure_Probability"] = probs
 
-#         st.subheader("📈 Predictions")
-#         st.dataframe(df.head())
+        st.subheader("📈 Predictions")
+        st.dataframe(df.head())
 
-#         st.success("Prediction completed successfully!")
+        st.success("Prediction completed successfully!")
 
-#     except Exception as e:
-#         st.error(f"Error: {e}")
+    except Exception as e:
+        st.error(f"Error: {e}")
