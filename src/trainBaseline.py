@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import f1_score
+import joblib
 
 def train_models(X, y):
     X_train, X_test, y_train, y_test = train_test_split(
@@ -25,6 +26,9 @@ def train_models(X, y):
     )
     rf.fit(X_train, y_train)
     rf_f1 = f1_score(y_test, rf.predict(X_test))
+
+    joblib.dump(rf, "models/rf_model.pkl")
+    joblib.dump(scaler, "models/scaler.pkl")
 
     return {
         "logistic_f1": lr_f1,

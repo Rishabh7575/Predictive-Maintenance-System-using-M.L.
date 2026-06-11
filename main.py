@@ -1,3 +1,4 @@
+import joblib
 from src.preprocessing import load_cmaps_data, add_rul
 from src.featureEngineering import add_rolling_features
 from src.labelling import generate_labels
@@ -23,6 +24,8 @@ y = df["label"]
 
 print("Feature shape:", X.shape)
 print("Label distribution:\n", y.value_counts())
+joblib.dump(X, "data/processed/X.pkl")
+joblib.dump(y, "data/processed/y.pkl")
 
 # Step: Train baseline models
 results = train_models(X, y)

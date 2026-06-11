@@ -5,7 +5,8 @@ import joblib
 st.title("🔧 Predictive Maintenance System")
 
 # Load model
-model = joblib.load("models/xgb_model.pkl")
+model = joblib.load("models/rf_model.pkl")
+# scaler = joblib.load("models/scaler.pkl")
 
 uploaded_file = st.file_uploader("Upload Sensor CSV", type=["csv"])
 
