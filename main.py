@@ -7,16 +7,22 @@ from src.train_xgboost import train_xgboost
 from src.model_comparison import compare_models
 
 path = "data/raw/train_FD001.txt"
-sensor_cols = [f"s_{i}" for i in range(1, 22)]
+sensor_cols = [f"s{i}" for i in range(1, 22)]
+
 
 df = load_cmaps_data(path)
 df = add_rul(df)
 df = add_rolling_features(df, sensor_cols)
 
-df = df.dropna()   # IMPORTANT  as it reduces data( but ensure fixed size considerations)
+rolling_cols = []
+for s in sensor_cols:
+    rolling_cols += [f"{s}_mean", f"{s}_std", f"{s}_trend"]
 
-print(df.head())
+df = df.dropna(subset=rolling_cols).reset_index(drop=True)# IMPORTANT  as it reduces data( but ensure fixed size considerations)
+
+print(df.columns)
 print(df.shape)
+print(df.head())
 
 df = generate_labels(df)
 X = df.drop(columns=["unit_id","cycle","RUL","label"])
@@ -27,11 +33,18 @@ print("Label distribution:\n", y.value_counts())
 joblib.dump(X, "data/processed/X.pkl")
 joblib.dump(y, "data/processed/y.pkl")
 
+print(X.shape)
+print(y.shape)
+print(y.value_counts())
+
 # Step: Train baseline models
 results = train_models(X, y)
 
 print("Model Results:", results)
 
 xgb_model, xgb_f1 = train_xgboost(X, y)
+
+print("Random Forest model saved")
+print("XGBoost model saved")
 
 compare_models(results, xgb_f1)

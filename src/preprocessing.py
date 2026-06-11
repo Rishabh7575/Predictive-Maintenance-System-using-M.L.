@@ -5,7 +5,7 @@ def load_cmaps_data(path):
     [f"os{i}" for i in range(1,4)] + \
     [f"s{i}" for i in range(1,22)]
 
-    df=pd.read_csv(path, sep=" ", header=None, names=cols)
+    df = pd.read_csv(path, sep=r"\s+", header=None)
     df=df.iloc[:,:len(cols)]        # Remove last mpt column
     df.columns=cols
     return df
