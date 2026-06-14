@@ -5,6 +5,7 @@ from src.labelling import generate_labels
 from src.trainBaseline import train_models
 from src.train_xgboost import train_xgboost
 from src.model_comparison import compare_models
+from src.evaluation import evaluate_model
 
 path = "data/raw/train_FD001.txt"
 sensor_cols = [f"s{i}" for i in range(1, 22)]
@@ -42,7 +43,25 @@ results = train_models(X, y)
 
 print("Model Results:", results)
 
-xgb_model, xgb_f1 = train_xgboost(X, y)
+xgb_model, xgb_f1, X_test, y_test = train_xgboost(X, y)
+
+evaluation = evaluate_model(
+    xgb_model,
+    X_test,
+    y_test
+)
+
+print("\n--- Evaluation Metrics ---")
+print("Accuracy :", round(evaluation["accuracy"], 4))
+print("Precision:", round(evaluation["precision"], 4))
+print("Recall   :", round(evaluation["recall"], 4))
+print("F1 Score :", round(evaluation["f1"], 4))
+
+print("\nConfusion Matrix")
+print(evaluation["confusion_matrix"])
+
+print("\nClassification Report")
+print(evaluation["report"])
 
 print("Random Forest model saved")
 print("XGBoost model saved")

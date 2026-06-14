@@ -31,4 +31,4 @@ def train_xgboost(X, y):
     # Save model
     joblib.dump(model, "models/xgb_model.pkl")
 
-    return model, f1
+    return model, f1, X_test, y_test
